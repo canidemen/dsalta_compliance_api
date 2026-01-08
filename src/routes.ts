@@ -28,14 +28,19 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TaskStatus": {
+        "dataType": "refEnum",
+        "enums": ["Pending","In Progress","Completed"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "CreateTaskDTO": {
         "dataType": "refObject",
         "properties": {
-            "controlId": {"dataType":"double","required":true},
-            "name": {"dataType":"string","required":true},
-            "description": {"dataType":"string","required":true},
-            "category": {"dataType":"string","required":true},
-            "status": {"dataType":"string","required":true},
+            "controlId": {"dataType":"integer","required":true},
+            "name": {"dataType":"string","required":true,"validators":{"minLength":{"value":1},"maxLength":{"value":100}}},
+            "description": {"dataType":"string","required":true,"validators":{"minLength":{"value":1},"maxLength":{"value":500}}},
+            "category": {"dataType":"string","required":true,"validators":{"minLength":{"value":1},"maxLength":{"value":100}}},
+            "status": {"ref":"TaskStatus"},
         },
         "additionalProperties": false,
     },
@@ -43,10 +48,10 @@ const models: TsoaRoute.Models = {
     "UpdateTaskDTO": {
         "dataType": "refObject",
         "properties": {
-            "name": {"dataType":"string"},
-            "description": {"dataType":"string"},
-            "category": {"dataType":"string"},
-            "status": {"dataType":"string"},
+            "name": {"dataType":"string","validators":{"minLength":{"value":1},"maxLength":{"value":100}}},
+            "description": {"dataType":"string","validators":{"minLength":{"value":1},"maxLength":{"value":500}}},
+            "category": {"dataType":"string","validators":{"minLength":{"value":1},"maxLength":{"value":100}}},
+            "status": {"ref":"TaskStatus"},
         },
         "additionalProperties": false,
     },
@@ -65,8 +70,8 @@ const models: TsoaRoute.Models = {
     "CreateEvidenceDTO": {
         "dataType": "refObject",
         "properties": {
-            "type": {"dataType":"string","required":true},
-            "note": {"dataType":"string","required":true},
+            "type": {"dataType":"string","required":true,"validators":{"minLength":{"value":1},"maxLength":{"value":100}}},
+            "note": {"dataType":"string","required":true,"validators":{"minLength":{"value":1},"maxLength":{"value":500}}},
         },
         "additionalProperties": false,
     },
@@ -92,7 +97,7 @@ export function RegisterRoutes(app: Router) {
                 organizationId: {"in":"path","name":"organizationId","required":true,"dataType":"double"},
                 body: {"in":"body","name":"body","required":true,"ref":"CreateTaskDTO"},
         };
-        app.post('/api/v1/organizations/:organizationId/tasks',
+        app.post('/v1/organizations/:organizationId/tasks',
             ...(fetchMiddlewares<RequestHandler>(TaskController)),
             ...(fetchMiddlewares<RequestHandler>(TaskController.prototype.createTask)),
 
@@ -126,7 +131,7 @@ export function RegisterRoutes(app: Router) {
                 status: {"in":"query","name":"status","required":true,"dataType":"string"},
                 category: {"in":"query","name":"category","required":true,"dataType":"string"},
         };
-        app.get('/api/v1/organizations/:organizationId/tasks',
+        app.get('/v1/organizations/:organizationId/tasks',
             ...(fetchMiddlewares<RequestHandler>(TaskController)),
             ...(fetchMiddlewares<RequestHandler>(TaskController.prototype.getTasks)),
 
@@ -157,7 +162,7 @@ export function RegisterRoutes(app: Router) {
                 organizationId: {"in":"path","name":"organizationId","required":true,"dataType":"double"},
                 taskId: {"in":"path","name":"taskId","required":true,"dataType":"double"},
         };
-        app.get('/api/v1/organizations/:organizationId/tasks/:taskId',
+        app.get('/v1/organizations/:organizationId/tasks/:taskId',
             ...(fetchMiddlewares<RequestHandler>(TaskController)),
             ...(fetchMiddlewares<RequestHandler>(TaskController.prototype.getTaskDetails)),
 
@@ -189,7 +194,7 @@ export function RegisterRoutes(app: Router) {
                 taskId: {"in":"path","name":"taskId","required":true,"dataType":"double"},
                 body: {"in":"body","name":"body","required":true,"ref":"UpdateTaskDTO"},
         };
-        app.patch('/api/v1/organizations/:organizationId/tasks/:taskId',
+        app.patch('/v1/organizations/:organizationId/tasks/:taskId',
             ...(fetchMiddlewares<RequestHandler>(TaskController)),
             ...(fetchMiddlewares<RequestHandler>(TaskController.prototype.updateTask)),
 
@@ -220,7 +225,7 @@ export function RegisterRoutes(app: Router) {
                 organizationId: {"in":"path","name":"organizationId","required":true,"dataType":"double"},
                 taskId: {"in":"path","name":"taskId","required":true,"dataType":"double"},
         };
-        app.delete('/api/v1/organizations/:organizationId/tasks/:taskId',
+        app.delete('/v1/organizations/:organizationId/tasks/:taskId',
             ...(fetchMiddlewares<RequestHandler>(TaskController)),
             ...(fetchMiddlewares<RequestHandler>(TaskController.prototype.deleteTask)),
 
@@ -252,7 +257,7 @@ export function RegisterRoutes(app: Router) {
                 taskId: {"in":"path","name":"taskId","required":true,"dataType":"double"},
                 body: {"in":"body","name":"body","required":true,"ref":"CreateEvidenceDTO"},
         };
-        app.post('/api/v1/organizations/:organizationId/tasks/:taskId/evidences',
+        app.post('/v1/organizations/:organizationId/tasks/:taskId/evidence',
             ...(fetchMiddlewares<RequestHandler>(EvidenceController)),
             ...(fetchMiddlewares<RequestHandler>(EvidenceController.prototype.createEvidence)),
 
@@ -284,7 +289,7 @@ export function RegisterRoutes(app: Router) {
                 taskId: {"in":"path","name":"taskId","required":true,"dataType":"double"},
                 evidenceId: {"in":"path","name":"evidenceId","required":true,"dataType":"double"},
         };
-        app.delete('/api/v1/organizations/:organizationId/tasks/:taskId/evidences/:evidenceId',
+        app.delete('/v1/organizations/:organizationId/tasks/:taskId/evidence/:evidenceId',
             ...(fetchMiddlewares<RequestHandler>(EvidenceController)),
             ...(fetchMiddlewares<RequestHandler>(EvidenceController.prototype.deleteEvidence)),
 

@@ -105,8 +105,14 @@ export class TaskService{
         if (!exists) {
             throw new NotFoundError('Task not found');
         }
+
+        // ON CASCADE DELETE for evidences related to the task
+        await prisma.evidence.deleteMany({
+            where: { taskId }
+        });
+
         await prisma.task.delete({
-            where: { id: taskId }
+            where: { id: taskId, organizationId }
         });
     }
 }
