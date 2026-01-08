@@ -1,0 +1,56 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build output
+dist
+public
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker files
+Dockerfile
+docker-compose*.yml
+
+# Development files
+notes.txt
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.claude
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+coverage
+*.test.ts
+*.spec.ts
+
+# Prisma generated (will be regenerated in Docker)
+/prisma/generated
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Logs
+*.log
+
+# npm artifacts
+proj1@*

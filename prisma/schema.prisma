@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Organization {
+  id        Int      @id @default(autoincrement())
+  name      String
+  frameworks Framework[]
+  tasks Task[]
+}
+
+model Framework{
+  id        Int      @id @default(autoincrement())
+  organizationId Int
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  name      String
+  controls Control[]
+}
+
+model Control {
+  id        Int      @id @default(autoincrement())
+  frameworkId Int
+  framework Framework @relation(fields: [frameworkId], references: [id])
+  code String
+  title String
+  tasks Task[]
+}
+
+model Task {
+  id        Int      @id @default(autoincrement())
+  organizationId Int
+  organization Organization @relation(fields: [organizationId], references: [id])
+  controlId Int
+  control Control @relation(fields: [controlId], references: [id])
+  name String
+  description String
+  category String
+  status String
+  evidences Evidence[]
+}
+
+model Evidence {
+  id        Int      @id @default(autoincrement())
+  taskId Int
+  task Task @relation(fields: [taskId], references: [id])
+  type String
+  note String
+} 

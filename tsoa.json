@@ -1,0 +1,24 @@
+{
+  "entryFile": "src/app.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/controllers/**/*Controller.ts"],
+  "spec": {
+    "outputDirectory": "public",
+    "specVersion": 3,
+    "name": "DSALTA Compliance API",
+    "description": "Multi-tenant compliance task management API",
+    "version": "1.0.0",
+    "securityDefinitions": {
+      "jwt": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "routes": {
+    "routesDir": "src",
+    "middleware": "express",
+    "basePath": "/api"
+  }
+}
