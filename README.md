@@ -52,7 +52,7 @@ Organization (1) ─── (n) Framework (1) ─── (n) Control
 #### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/canidemen/dsalta_compliance_api.git
 cd proj1
 ```
 
