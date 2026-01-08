@@ -52,8 +52,8 @@ Organization (1) ─── (n) Framework (1) ─── (n) Control
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/canidemen/dsalta_compliance_api.git
-cd proj1
+git clone <repository-url>
+cd dsalta_compliance_api-main
 ```
 
 #### 2. Set up environment variables
@@ -302,7 +302,7 @@ docker-compose up -d
 curl -X POST http://localhost:3000/api/v1/organizations/1/tasks \
   -H "Content-Type: application/json" \
   -d '{
-    "controlId": 1,
+    "controlId": 3,
     "name": "Implement Access Controls",
     "description": "Set up role-based access control system",
     "category": "Access Control",
