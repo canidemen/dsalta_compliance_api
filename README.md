@@ -23,14 +23,6 @@ A production-ready, multi-tenant REST API for managing compliance tasks and evid
 - **ORM**: Prisma 7
 - **Containerization**: Docker & Docker Compose
 
-## Data Model
-
-```
-Organization (1) ─── (n) Framework (1) ─── (n) Control
-     │                                            │
-     └──────────────────── (n) Task (1) ─── (n) Evidence
-```
-
 ### Entities
 
 - **Organization**: Multi-tenant root entity
